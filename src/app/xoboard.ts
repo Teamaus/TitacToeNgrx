@@ -10,7 +10,7 @@ export class Cell{
 }
 export class XOBoard {
     cells?:Array<Array<number>>
-    constructor(size:number){
+    constructor(public size:number){
         this.cells = new Array(size)
         this.cells.fill(new Array(size).fill(0))
         console.log(this.cells)
@@ -35,7 +35,7 @@ export const boardReducer = createReducer(
         cells[update.row][update.col] = update.xoro=="X"?1:-1
        
         obj.cells = cells.map(v=>v)
-
+        
     }
     
     console.log(obj)

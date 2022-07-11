@@ -1,5 +1,6 @@
 import { state } from '@angular/animations';
-import { Component } from '@angular/core';
+import { getLocalePluralCase } from '@angular/common';
+import { Component, Sanitizer } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
 import { INITBOARDACTION, SETBOARDACTION, XOBoard } from './xoboard';
@@ -11,19 +12,19 @@ import { INITBOARDACTION, SETBOARDACTION, XOBoard } from './xoboard';
 })
 export class AppComponent {
   title = 'TicTacToeRedux';
-  cells$?:Observable<any>
-  cells$View?:Observable<any>
+  board$?:Observable<any>
+  
   
 
   constructor(private store:Store<{Board:XOBoard}>)
   {
-        let cells$ = store.select(state=>state.Board.cells)
-       
-
+        this.board$ = store.select(state=>state.Board)
+  
+  
   }
   ngOnInit(){
    
-    this.cells$?.subscribe(e=>console.log(e))
+    this.board$?.subscribe(e=>console.log(e))
     this.store.dispatch(INITBOARDACTION({size:3}))
   }
   makeMove(row:number,col:number){
